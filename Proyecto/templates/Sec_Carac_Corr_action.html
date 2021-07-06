@@ -1,0 +1,135 @@
+{% extends 'template_base.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h1 mb-1 text-gray-800">Selección de características (Correlaciones)</h1>
+        </div>
+        <!-- Selección de características (Correlaciones) -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">       
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Subir archivo (.csv)</h6>
+                </div>
+                <form id="file-form" method="POST" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="custom-file col-4 ml-2">
+                                <input name="file" id="file" type="file" class="custom-file-input" lang="es" accept=".csv, .txt">
+                                <label class="custom-file-label" for="file">Seleccionar Archivo</label>
+                            </div>
+                        </div>
+                        <br>
+                        <fieldset>
+                            <button id="file-analize-btn" type="button" class="btn btn-md btn-secondary">Procesar</button>
+                        </fieldset>
+                    </div>
+                </form>
+                <div id="features-container" style="display: none;">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Tabla con los datos</h6>
+                    </div>
+                    <div class="row">
+                        <div class="custom-file col-4 ml-2">
+                            <br>
+                            <div id = "tabla_data">
+
+                            </div>
+                            <br>
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Descripción de la esctructura de los datos</h6>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 mb-4">
+                                    <div id = "tamano_data">
+    
+                                    </div>
+                                    <div id = "data_type">
+    
+                                    </div>
+                                    <br>
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Datos nulos</h6>
+                                    </div>
+                                    <div id = "data_nulos">
+    
+                                    </div>
+                                    <br>
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Identificación de relaciones entre variables</h6>
+                                    </div>
+                                    <br>
+                                    <div id = "relation_values">
+    
+                                    </div>
+                                    <br>
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Heapmap de relación entre par de variables</h6>
+                                    </div>
+                                    <br>
+                                    <div id = "heap">
+    
+                                    </div>
+                                    <br>
+                                    <div id = "heap_inf">
+    
+                                    </div>
+                                    <br>
+                                    <div id = "heap_sup">
+    
+                                    </div>
+                                    <br>
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Evaluación Visual de Correlaciones</h6>
+                                    </div>
+                                    <br>
+                                    <p><b>Seleccione valor de abscisa:</b></p>
+                                    <div class="col-4">
+                                        <select id="abscisa_options" class="form-control" name="abscisa_options">
+
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <p><b>Seleccione valor de ordenada:</b></p>
+                                    <div class="col-4">
+                                        <select id="ordenada_options" class="form-control" name="ordenada_options">
+                                            
+                                        </select>
+                                    </div>
+                                    <br>
+                                </div>
+                                <br>
+                            </div>
+                            <fieldset>
+                                <button id="graph-btn" type="button" class="btn btn-md btn-secondary">Graficar</button>
+                            </fieldset>
+                            <div id="separator" style="height: 100px; background-color: rgba(0, 0, 0, 0);"></div>
+                            <div id="features-container2" style="display: none;">
+                                <div class="row">
+                                    <div class="col-lg-12 mb-4">
+                                        <p><b>Gráfica resultado:</b></p>
+                                        <br>
+                                        <div id = "img_two_data">
+        
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="separator" style="height: 100px; background-color: rgba(0, 0, 0, 0);"></div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+{% endblock%}

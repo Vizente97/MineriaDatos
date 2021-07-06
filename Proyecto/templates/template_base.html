@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='img/favicon.ico')}}">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Minería de Datos</title>
+
+    <!-- Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    
+    <!-- Datatables.net -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <!--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>-->
+
+    <!-- Custom fonts for this template-->
+    <link href="{{ url_for('static',filename='css/loader.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static',filename='css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ url_for('static',filename='css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <script src="/static/js/upload_files.js"></script>
+    <script src="/static/js/corr_data.js"></script>
+    <script src="/static/js/metrics.js"></script>
+    <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+
+
+</head>
+
+<body id="page-top">
+
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <img  class="sidebar-card-illustration mb-2" src="/static/img/mineria-de-datos.svg" width="50" height="50">
+                <div class="sidebar-brand-text mx-3">VizGamer97</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Inicio</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Algoritmos
+            </div>
+
+            <!-- Análisis Exploratorio de Datos -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1"
+                    aria-expanded="true" aria-controls="collapse1">
+                    <i class="fas fa-code"></i>
+                    <span>EDA</span>
+                </a>
+                <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Contenido:</h6>
+                        <a class="collapse-item" href="404.html">Definición</a>
+                        <a class="collapse-item" href="EDA_action.html">Implementación</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Selección de características (Correlaciones) -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-code"></i>
+                    <span>Selección de características (Correlaciones)</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Contenido:</h6>
+                        <a class="collapse-item" href="404.html">Definición</a>
+                        <a class="collapse-item" href="Sec_Carac_Corr_action.html">Características</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Métricas -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTree"
+                    aria-expanded="true" aria-controls="collapseTree">
+                    <i class="fas fa-code"></i>
+                    <span>Métricas</span>
+                </a>
+                <div id="collapseTree" class="collapse" aria-labelledby="headingTree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Contenido:</h6>
+                        <a class="collapse-item" href="404.html">Definición</a>
+                        <a class="collapse-item" href="metricas.html">Características</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Otro -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3"
+                    aria-expanded="true" aria-controls="collapse3">
+                    <i class="fas fa-code"></i>
+                    <span>Algoritmo 3</span>
+                </a>
+                <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Contenido:</h6>
+                        <a class="collapse-item" href="404.html">Definición</a>
+                        <a class="collapse-item" href="404.html">Características</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+            <div class="sidebar-card">
+                <img class="sidebar-card-illustration mb-2" src="/static/img/undraw_rocket.svg" alt="">
+                <p class="text-center mb-2"><strong>Vicente García Martínez</strong> desarrolló este proyecto, puede ver sus contactos en el siguiente botón.</p>
+                <a class="btn btn-success btn-sm" href="contacto.html">Contacto</a>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column" style="overflow-x: auto">
+            {% block content%}
+            {% endblock%}
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white" style="bottom: 0;
+            position: absolute;
+            left: 224px;
+            right: 0;
+            z-index: 1;">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>VizGamer97 &copy; Mineria de datos 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/static/js/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin-2.min.js"></script>
+
+</body>
+</html>
