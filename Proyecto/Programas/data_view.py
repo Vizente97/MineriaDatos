@@ -8,6 +8,15 @@ class Data(object):
         #print(cadena)
         return (cadena)
 
+    def config_columnas_pca(columnas):
+        #print(columnas)
+        cadena = ''
+        for s in columnas:
+            option = '<option value="' + str(s) + '">' + str(s) +'</option>'
+            cadena += option
+        #print(cadena)
+        return (cadena)
+
     def config_columnas_corr(columnas):
         cadena = ''
         for s in columnas:

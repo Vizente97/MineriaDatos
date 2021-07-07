@@ -13,6 +13,10 @@ $(document).ready(function () {
     $("#analize-metric-btn").click(function(){
         var form_data = new FormData($('#file-form')[0]);
         form_data.append("metricas_options",$("#metricas_options").val());
+        var cod = document.getElementById("metricas_options").value;
+        if(cod == "minkowski"){
+            form_data.append("p_minkowski",$("#p_minkowski").val());
+        }
         $.ajax({
             url: '/metrics',
             data: form_data,
@@ -35,4 +39,16 @@ $(document).ready(function () {
             }
         });          
     });
+
+    $('#metricas_options').on('change',function(e){
+        var cod = document.getElementById("metricas_options").value;
+        //alert(cod)
+        if(cod == "minkowski"){
+            $("#option_minkowski").css("display","block");
+        }
+        else{
+            $("#option_minkowski").css("display","none");
+        }
+    });
+
 });

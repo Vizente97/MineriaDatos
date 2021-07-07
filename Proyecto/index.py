@@ -4,11 +4,14 @@ from io import StringIO, BytesIO
 import json
 from Programas.data_view import Data
 from Programas.correlaciones import corrData
+from Programas.pcaAnalysis import PCA_Analysis
 import numpy as np
 import matplotlib.pyplot as plt
+plt.matplotlib.use('agg')
 from base64 import b64encode
 import seaborn as sns
 from scipy.spatial.distance import cdist
+from sklearn.preprocessing import StandardScaler
 
 app = Flask("Mineria Datos")
 data_global = {}
@@ -40,6 +43,14 @@ def Sec_Carac_Corr_action():
 @app.route('/metricas.html')
 def metricas():
     return render_template('metricas.html')
+
+@app.route('/pca.html')
+def pca():
+    return render_template('pca.html')
+
+@app.route('/cluster.html')
+def cluster():
+    return render_template('cluster.html')
 
 @app.route("/data_file", methods=["POST"])
 def analize_file():
@@ -182,13 +193,81 @@ def metrics():
     if len(file_content) > 0:
         Datos = pd.read_csv(StringIO(file_content))
         data_global = Datos
-        matriz = pd.DataFrame(cdist(Datos, Datos, metric=metrica)).to_html().replace("dataframe","table table-bordered")
+        if (metrica == "minkowski"):
+            valor_p = request.form["p_minkowski"]
+            matriz = pd.DataFrame(cdist(Datos, Datos, metric=metrica, p=float(valor_p))).to_html().replace("dataframe","table table-bordered")
+        else:
+            matriz = pd.DataFrame(cdist(Datos, Datos, metric=metrica)).to_html().replace("dataframe","table table-bordered")
         matriz = matriz.replace('border="1"','id="table2"')
     else:
         raise Warning("No existe un archivo a analizar")
     return jsonify(matriz)
 
 ##########################################################################################
+
+###################################### PCA ##########################################
+
+@app.route("/data_table_pca", methods=["POST"])
+def data_table_pca():
+    global data_global
+    response = {}
+    file_content = request.files["file"].read().decode("utf-8")
+    if len(file_content) > 0:
+        Datos = pd.read_csv(StringIO(file_content))
+        data_global = Datos
+        frame = pd.DataFrame(Datos)
+        HTML = frame.to_html().replace("dataframe","table table-bordered")
+        HTML = HTML.replace('border="1"','id="table1"')
+        labels = Data.config_columnas_pca(list(Datos.columns.values))
+    else:
+        raise Warning("No existe un archivo a analizar")
+    return jsonify(HTML,labels)
+
+@app.route("/update_data", methods=["POST"])
+def update_data():
+    global data_global
+    response = {}
+    columna = request.form["columns_options"]
+    updateData = data_global.drop([columna], axis=1)
+    data_global = updateData
+    frame = pd.DataFrame(updateData)
+    HTML = frame.to_html().replace("dataframe","table table-bordered")
+    HTML = HTML.replace('border="1"','id="table2"')
+    labels = Data.config_columnas_pca(list(updateData.columns.values))
+    return jsonify(HTML,labels)
+
+@app.route("/normalize_data", methods=["POST"])
+def normalize_data():
+    global data_global
+    response = {}
+    normalizar = StandardScaler() 
+    normalizar.fit(data_global)
+    MNormalizada = normalizar.transform(data_global)
+    frame = pd.DataFrame(MNormalizada,columns=data_global.columns)
+    HTML = frame.to_html().replace("dataframe","table table-bordered")
+    HTML = HTML.replace('border="1"','id="table3"')
+    return jsonify(HTML)
+
+@app.route("/pca_analysis", methods=["POST"])
+def pca_analysis():
+    number = request.form["components"]
+    global data_global
+    normalizar = StandardScaler() 
+    normalizar.fit(data_global)
+    MNormalizada = normalizar.transform(data_global)
+    Componentes,x_Comp = PCA_Analysis.componentes(MNormalizada,number)
+    ######### Tabla componentes #########
+    frame = pd.DataFrame(x_Comp)
+    HTML = frame.to_html().replace("dataframe","table table-bordered")
+    HTML = HTML.replace('border="1"','id="table4"')
+    ######## Eigenvalues y Varianza ######
+    eigenvalues, varianza, img = PCA_Analysis.varianza(Componentes)
+    no_abs, abs = PCA_Analysis.matrices(Componentes)
+    no_abs_cargas, abs_cargas = PCA_Analysis.cargas(Componentes,data_global)
+    return jsonify(HTML,str(eigenvalues),varianza,img,no_abs, abs,no_abs_cargas, abs_cargas)
+
+##########################################################################################
+
 
 if __name__ == '__main__':
     app.run()

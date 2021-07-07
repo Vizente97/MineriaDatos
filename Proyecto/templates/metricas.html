@@ -10,7 +10,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h1 mb-1 text-gray-800">Métricas</h1>
         </div>
-        <!-- EDA -->
+        <!-- Métricas -->
         <div class="row">
             <div class="col-lg-12 mb-4">       
                 <div class="card-header py-3">
@@ -55,6 +55,12 @@
                                         <option value="minkowski">Minkowski</option>
                                     </select>
                                 </div>
+                                <br>
+                                <div id="option_minkowski" style="display: none;">
+                                    <br>
+                                    <p><b>Seleccione el valor de p:</b></p>
+                                    <input type="number" id="p_minkowski" name="p_minkowski" min="0" max="100" class="form-control">
+                                </div>
                             </div>
                             <br>
                             <fieldset>
@@ -67,6 +73,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 mb-4">
+                                        <br>
                                         <div id = "tablamatriz">
         
                                         </div>
