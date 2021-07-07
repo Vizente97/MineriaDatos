@@ -1,0 +1,121 @@
+{% extends 'template_base.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h1 mb-1 text-gray-800">Cluster Particional</h1>
+        </div>
+        <!-- Cluster Particional -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">       
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Subir archivo (.csv)</h6>
+                </div>
+                <form id="file-form" method="POST" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="custom-file col-4 ml-2">
+                                <input name="file" id="file" type="file" class="custom-file-input" lang="es" accept=".csv, .txt">
+                                <label class="custom-file-label" for="file">Seleccionar Archivo</label>
+                            </div>
+                        </div>
+                        <br>
+                        <fieldset>
+                            <button id="file-btn-cluster" type="button" class="btn btn-md btn-secondary">Procesar</button>
+                        </fieldset>
+                    </div>
+                </form>
+                <div id="features-container" style="display: none;">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Tabla con los datos</h6>
+                    </div>
+                    <div class="row">
+                        <div class="custom-file col-4 ml-2 ">
+                            <br>
+                            <div id = "tabla1">
+
+                            </div>
+                            <br>
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Agrupación</h6>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12 mb-4">
+                                    <p><b>Seleccione por que valor agrupar:</b></p>
+                                    <div class="col-4">
+                                        <select id="group_options" class="form-control" name="metricas_options">
+
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <p><b>Seleccione el valor de la abscisa:</b></p>
+                                    <div class="col-4">
+                                        <select id="x_options" class="form-control" name="metricas_options">
+
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <p><b>Seleccione el valor de la ordenada:</b></p>
+                                    <div class="col-4">
+                                        <select id="y_options" class="form-control" name="metricas_options">
+
+                                        </select>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <br>
+                            <fieldset>
+                                <button id="graph-dispertion-btn" type="button" class="btn btn-md btn-secondary">Ver Gráfico de Dispersión</button>
+                            </fieldset>
+                            <br>
+                            <fieldset>
+                                <button id="matriz-dispertion-btn" type="button" class="btn btn-md btn-secondary">Ver Matriz de Correlaciones y HeapMap</button>
+                            </fieldset>
+                            <br>
+                            <div id="features-container3" style="display: none;">
+                                <div class="row">
+                                    <div class="col-lg-12 mb-4">
+                                        <br>
+                                        <div id = "graph_dispersion">
+        
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div id="features-container4" style="display: none;">
+                                <div class="row">
+                                    <div class="col-lg-12 mb-4">
+                                        <br>
+                                        <div id = "pearson">
+        
+                                        </div>
+                                        <br>
+                                        <div id = "img_heatmap">
+        
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div id="separator" style="height: 100px; background-color: rgba(0, 0, 0, 0);"></div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+{% endblock%}

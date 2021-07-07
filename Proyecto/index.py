@@ -205,7 +205,7 @@ def metrics():
 
 ##########################################################################################
 
-###################################### PCA ##########################################
+######################################## PCA ############################################
 
 @app.route("/data_table_pca", methods=["POST"])
 def data_table_pca():
@@ -268,6 +268,45 @@ def pca_analysis():
 
 ##########################################################################################
 
+###################################### Cluster ###########################################
+
+@app.route("/graph_dispertion", methods=["POST"])
+def graph_dispertion():
+    global data_global
+    group = request.form["group_options"]
+    valor_abs = request.form["x_options"]
+    valor_ord = request.form["y_options"]
+    sns.scatterplot(x=valor_abs, y=valor_ord, data=data_global, hue=group)
+    plt.title('Gráfico de dispersión')
+    plt.xlabel(valor_abs)
+    plt.ylabel(valor_ord)
+    pic_IObytes = BytesIO()
+    plt.savefig(pic_IObytes,format='png')
+    pic_IObytes.seek(0)
+    pic_hash = b64encode(pic_IObytes.read())
+    image = """<img src="data:image/png;base64,{b64}" style="width: 500px;height: 400px;"/>"""
+    graph = image.format(b64=pic_hash.decode("utf-8"))
+    plt.close()
+    return jsonify(graph)
+
+@app.route("/pearson", methods=["POST"])
+def pearson():
+    global data_global
+    matriz = pd.DataFrame(data_global.corr(method='pearson')).to_html().replace("dataframe","table table-bordered")
+    matriz = matriz.replace('border="1"','id="table2"')
+    mp = pd.DataFrame(data_global.corr(method='pearson'))
+    MatrizInf = np.triu(mp)
+    plt.figure(figsize=(28,8))
+    sns.heatmap(mp, cmap='RdBu_r', annot=True, mask=MatrizInf)
+    pic_IObytes = BytesIO()
+    plt.savefig(pic_IObytes,format='png')
+    pic_IObytes.seek(0)
+    pic_hash = b64encode(pic_IObytes.read())
+    image = """<img src="data:image/png;base64,{b64}" style="width: 1100px;height: 450px;"/>"""
+    graph = image.format(b64=pic_hash.decode("utf-8"))
+    return jsonify(matriz,graph)
+
+##########################################################################################
 
 if __name__ == '__main__':
     app.run()
