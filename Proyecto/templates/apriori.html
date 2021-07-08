@@ -1,0 +1,99 @@
+{% extends 'template_base.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h1 mb-1 text-gray-800">Apriori</h1>
+        </div>
+        <!-- Apriori -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">       
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Subir archivo (.csv)</h6>
+                </div>
+                <form id="file-form" method="POST" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="custom-file col-4 ml-2">
+                                <input name="file" id="file" type="file" class="custom-file-input" lang="es" accept=".csv, .txt">
+                                <label class="custom-file-label" for="file">Seleccionar Archivo</label>
+                            </div>
+                        </div>
+                        <br>
+                        <p><b>Seleccione si incluir o no headers:</b></p>
+                        <div class="col-4">
+                            <select id="header_options" class="form-control" name="metricas_options">
+                                <option value="no_header"selected>No incluir</option>
+                                <option value="si_header" >Incluir</option>
+                            </select>
+                        </div>
+                        <br>
+                        <fieldset>
+                            <button id="file-apriori-btn" type="button" class="btn btn-md btn-secondary">Procesar</button>
+                        </fieldset>
+                    </div>
+                </form>
+                <div id="features-container" style="display: none;">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Tabla con los datos</h6>
+                    </div>
+                    <div class="row">
+                        <div class="custom-file col-4 ml-2">
+                            <br>
+                            <div id = "tabla_data">
+
+                            </div>
+                            <br>
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Configuración de valores</h6>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12 mb-4">
+                                    <p><b>Indique valor de soporte:</b></p>
+                                        <input type="number" id="soporte" name="soporte" min="0" max="100" class="form-control">
+                                    <br>
+                                    <p><b>Indique valor de confianza:</b></p>
+                                        <input type="number" id="confianza" name="confianza" min="0" max="100" class="form-control">
+                                    <br>
+                                    <p><b>Indique valor de elevación:</b></p>
+                                        <input type="number" id="elevacion" name="elevacion" min="0" max="100" class="form-control">
+                                    <br>
+                                </div>
+                            </div>
+                            <br>
+                            <fieldset>
+                                <button id="apriori-btn" type="button" class="btn btn-md btn-secondary">Generar reglas</button>
+                            </fieldset>
+                            <br>
+                            <div id="features-container2" style="display: none;">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Resultados de Apriori</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 mb-4">
+                                        <br>
+                                        <div id = "tabla_configuraciones">
+        
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div id="separator" style="height: 100px; background-color: rgba(0, 0, 0, 0);"></div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+{% endblock%}

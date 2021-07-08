@@ -6,6 +6,7 @@ from Programas.data_view import Data
 from Programas.correlaciones import corrData
 from Programas.pcaAnalysis import PCA_Analysis
 from Programas.kmeans import KMeans_Program
+from Programas.apriori import Apriori_Analysis
 import numpy as np
 import matplotlib.pyplot as plt
 plt.matplotlib.use('agg')
@@ -13,6 +14,7 @@ from base64 import b64encode
 import seaborn as sns
 from scipy.spatial.distance import cdist
 from sklearn.preprocessing import StandardScaler
+from apyori import apriori  
 
 app = Flask("Mineria Datos")
 data_global = {}
@@ -54,6 +56,10 @@ def pca():
 @app.route('/cluster.html')
 def cluster():
     return render_template('cluster.html')
+
+@app.route('/apriori.html')
+def apriori_algoritmo():
+    return render_template('apriori.html')
 
 @app.route("/data_file", methods=["POST"])
 def analize_file():
@@ -349,6 +355,46 @@ def kmeas():
     t_centroides,CentroidesP = KMeans_Program.centroides(MParticional,selection)
     img_3d = KMeans_Program.img3D(MParticional,CentroidesP,kmeans)
     return jsonify(see, knee, t_clusters, g_clusters, t_centroides, img_3d)
+
+##########################################################################################
+
+###################################### Apriori ###########################################
+
+@app.route("/data_table_apriori", methods=["POST"])
+def data_table_apriori():
+    global data_global
+    global selection
+    selection = []
+    file_content = request.files["file"].read().decode("utf-8")
+    header = request.form["header_options"]
+    if len(file_content) > 0:
+        if header == "no_header":
+            Datos = pd.read_csv(StringIO(file_content),header=None)
+        else:
+            Datos = pd.read_csv(StringIO(file_content))
+        data_global = Datos
+        frame = pd.DataFrame(Datos)
+        HTML = frame.to_html().replace("dataframe","table table-bordered")
+        HTML = HTML.replace('border="1"','id="table1"')
+    else:
+        raise Warning("No existe un archivo a analizar")
+    return jsonify(HTML)
+
+@app.route("/reglas_apriori", methods=["POST"])
+def reglas_apriori():
+    global data_global
+    support = request.form["soporte"]
+    confidence = request.form["confianza"]
+    lift = request.form["elevacion"]
+    MoviesLista = []
+    for i in range(0, len(data_global)):
+        MoviesLista.append([str(data_global.values[i,j]) 
+        for j in range(0, 20)])
+    ListaConfiguracion = apriori(MoviesLista, min_support=float(support), min_confidence=float(confidence), min_lift=int(lift))
+    ReglasConfiguracion = list(ListaConfiguracion)
+    print(ReglasConfiguracion)
+    resultado = Apriori_Analysis.format_Data(ReglasConfiguracion)
+    return jsonify(resultado)
 
 ##########################################################################################
 
