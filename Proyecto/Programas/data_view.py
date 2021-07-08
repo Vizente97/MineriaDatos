@@ -50,4 +50,14 @@ class Data(object):
         cadena += "</ul>"
         salida=cadena.replace("dataframe","table table-bordered")
         return (salida)
+
+    def data_select(data):
+        cadena = "<ul>"
+        for i in range(len(data)):
+            output = data[i]
+            ul = "<li>" + str(output) + "</li>"
+            cadena += ul
+        cadena += "</ul>"
+        return (cadena)
+    
     

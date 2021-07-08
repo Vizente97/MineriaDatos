@@ -5,6 +5,7 @@ import json
 from Programas.data_view import Data
 from Programas.correlaciones import corrData
 from Programas.pcaAnalysis import PCA_Analysis
+from Programas.kmeans import KMeans_Program
 import numpy as np
 import matplotlib.pyplot as plt
 plt.matplotlib.use('agg')
@@ -15,6 +16,8 @@ from sklearn.preprocessing import StandardScaler
 
 app = Flask("Mineria Datos")
 data_global = {}
+selection = []
+kmeans = []
 
 @app.route('/')
 def principal():
@@ -210,7 +213,8 @@ def metrics():
 @app.route("/data_table_pca", methods=["POST"])
 def data_table_pca():
     global data_global
-    response = {}
+    global selection
+    selection = []
     file_content = request.files["file"].read().decode("utf-8")
     if len(file_content) > 0:
         Datos = pd.read_csv(StringIO(file_content))
@@ -304,7 +308,47 @@ def pearson():
     pic_hash = b64encode(pic_IObytes.read())
     image = """<img src="data:image/png;base64,{b64}" style="width: 1100px;height: 450px;"/>"""
     graph = image.format(b64=pic_hash.decode("utf-8"))
-    return jsonify(matriz,graph)
+    labels = Data.config_columnas_pca(list(data_global.columns.values))
+    return jsonify(matriz,graph,labels)
+
+@app.route("/select_variables", methods=["POST"])
+def select_variables():
+    global data_global
+    global selection
+    variable = request.form["selection_options"]
+    if variable in selection:
+        print("Ya esta en la lista")
+    else:
+        selection.append(request.form["selection_options"])
+    #print(selection)
+    lista_var = Data.data_select(selection)
+    return jsonify(lista_var)
+
+@app.route("/createData", methods=["POST"])
+def crearData():
+    global data_global
+    global selection
+    global kmeans
+    kmeans = np.array(data_global[selection])
+    frame = pd.DataFrame(np.array(data_global[selection]))
+    HTML = frame.to_html().replace("dataframe","table table-bordered")
+    HTML = HTML.replace('border="1"','id="table3"')
+    return jsonify(HTML)
+
+##########################################################################################
+
+####################################### Kmans ############################################
+
+@app.route("/kmeas", methods=["POST"])
+def kmeas():
+    global kmeans
+    global selection
+    see, lista = KMeans_Program.see(kmeans)
+    knee = KMeans_Program.knee(lista)
+    t_clusters, g_clusters, MParticional = KMeans_Program.clusters(kmeans,data_global)
+    t_centroides,CentroidesP = KMeans_Program.centroides(MParticional,selection)
+    img_3d = KMeans_Program.img3D(MParticional,CentroidesP,kmeans)
+    return jsonify(see, knee, t_clusters, g_clusters, t_centroides, img_3d)
 
 ##########################################################################################
 
