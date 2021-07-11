@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, jsonify, send_file, Response, abort
+from flask import Flask, render_template, request, jsonify
 import pandas as pd 
 from io import StringIO, BytesIO
-import json
 from Programas.data_view import Data
 from Programas.correlaciones import corrData
 from Programas.pcaAnalysis import PCA_Analysis
