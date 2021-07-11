@@ -60,6 +60,34 @@ def cluster():
 @app.route('/apriori.html')
 def apriori_algoritmo():
     return render_template('apriori.html')
+    
+@app.route('/d_EDA.html')
+def d_EDA():
+    return render_template('d_EDA.html')
+    
+@app.route('/d_Correlaciones.html')
+def d_Correlaciones():
+    return render_template('d_Correlaciones.html')
+
+@app.route('/d_Metricas.html')
+def d_Metricas():
+    return render_template('d_Metricas.html')
+
+@app.route('/d_PCA.html')
+def d_PCA():
+    return render_template('d_PCA.html')
+
+@app.route('/d_Cluster.html')
+def d_Cluster():
+    return render_template('d_Cluster.html')
+
+@app.route('/d_Apriori.html')
+def d_Apriori():
+    return render_template('d_Apriori.html')
+
+@app.route('/contacto.html')
+def contacto():
+    return render_template('contacto.html')
 
 @app.route("/data_file", methods=["POST"])
 def analize_file():
@@ -392,9 +420,12 @@ def reglas_apriori():
         for j in range(0, 20)])
     ListaConfiguracion = apriori(MoviesLista, min_support=float(support), min_confidence=float(confidence), min_lift=int(lift))
     ReglasConfiguracion = list(ListaConfiguracion)
-    print(ReglasConfiguracion)
+    #print(ReglasConfiguracion)
     resultado = Apriori_Analysis.format_Data(ReglasConfiguracion)
-    return jsonify(resultado)
+    frame = pd.DataFrame(resultado)
+    HTML = frame.to_html().replace("dataframe","table table-bordered")
+    HTML = HTML.replace('border="1"','id="table2"')
+    return jsonify(HTML)
 
 ##########################################################################################
 

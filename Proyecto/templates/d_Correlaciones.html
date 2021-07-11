@@ -1,0 +1,47 @@
+{% extends 'template_base.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h1 mb-1 text-gray-800">Análisis correlacional de datos (ACD ó CDA)</h1>
+        </div>
+    
+        <!-- Que es CDA -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">       
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">¿Qué es el Análisis correlacional de datos?</h6>
+                </div>
+                <div class="card-body">
+                    <p> El ACD (CDA) es útil para reducir el número de variables, de un espacio de alta dimensión a uno de menor
+                        número de dimensiones. Esto se logra a través de la identificación de variables significativas.
+                        Esta identificación de correlaciones se utiliza para determinar el grado de similitud (relevancia/irrelevancia)
+                        de los valores de dos variables numéricas.</p>
+                    <p> Existe correlación entre 2 variables (X,Y) si al aumentar los valores de X también los hacen de Y, o
+                        viceversa.</p>
+                    <p> La reducción consiste en lo siguientes 2 puntos:</p>
+                    <ul>
+                        <li> Que a partir de un conjunto de variables originales: X1, X2, X3,..., Xn</li>
+                        <li> Se obtiene otro subconjunto de variables relevantes : X1, X2, X3,..., Xm, donde m < n.</li>
+                    </ul>
+                    <div class="text-center">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 90rem;"
+                            src="static/img/ACD.png" alt="">
+                    </div>
+                </div>
+            </div>
+            </div> 
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+{% endblock%}

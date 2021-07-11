@@ -1,0 +1,50 @@
+{% extends 'template_base.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h1 mb-1 text-gray-800">Reglas de asociación</h1>
+        </div>
+    
+        <!-- Que es Reglas de asociación -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">       
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">¿Qué son las Reglas de asociación?</h6>
+                </div>
+                <div class="card-body">
+                    <p> Consiste en identificar un conjunto de patrones secuenciales en forma de reglas de tipo:</p>
+                    <div class="text-center">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
+                            src="static/img/apriori1.png" alt="">
+                    </div>
+                    <p> Estos patrones tienen cierta frecuencia (ocurrencia) en los datos. Las características de los datos transaccionales son:</p>
+                    <ul>
+                        <li> Son datos operativos.</li>
+                        <li> Se emplean para controlar y ejecutar tareas, como: ventas, transacciones, procesos y otros.</li>
+                        <li> Están altamente normalizados y se almacenan en tablas.</li>
+                    </ul>
+                    <p> Las reglas de asociación en la actualidad, se utilizan en los diversos sistemas de recomendación.
+                        Por ejemplo, en tiendas virtuales como: Amazon, Lineo, ebay, Flipkart, Mercado Libre y otros. Se aplican en operaciones de supermercados para saber qué productos suelen comprar los clientes, para
+                        ponerlos juntos, y así mejorar la gestión de procesos, fijar precios, reducir el tiempo de compra del cliente.</p>
+                    <div class="text-center">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 50rem;"
+                            src="static/img/apriori2.png" alt="">
+                    </div>
+                </div>
+            </div>
+            </div> 
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+{% endblock%}

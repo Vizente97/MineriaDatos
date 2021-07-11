@@ -11,6 +11,7 @@ $(document).ready(function () {
     });
 
     $("#file-btn-cluster").click(function(){
+        $("#js-loader").css("display","block");
         var form_data = new FormData($('#file-form')[0]);
         $.ajax({
             url: '/data_table_pca',
@@ -38,6 +39,7 @@ $(document).ready(function () {
                 $("#x_options").html(columnas);
                 $("#y_options").html(columnas);
                 $("#variables_select").html("");
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -46,6 +48,7 @@ $(document).ready(function () {
     });
 
     $("#graph-dispertion-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form = new FormData();
         form.append("group_options",$("#group_options").val());
         form.append("x_options",$("#x_options").val());
@@ -60,6 +63,7 @@ $(document).ready(function () {
                 $("#features-container3").css("display","block");
                 var img = response;
                 $("#graph_dispersion").html(img);
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -68,6 +72,7 @@ $(document).ready(function () {
     });
 
     $("#matriz-dispertion-btn").click(function(){
+        $("#js-loader").css("display","block");
         $.ajax({
             url: '/pearson',
             type: 'POST',
@@ -88,6 +93,7 @@ $(document).ready(function () {
                 console.log(response);
                 $("#img_heatmap").html(img);
                 $("#selection_options").html(columnas);
+                $("#js-loader").css("display","none");
             },
             error: function(error){
             }
@@ -95,6 +101,7 @@ $(document).ready(function () {
     });
 
     $("#select-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form = new FormData();
         form.append("selection_options",$("#selection_options").val());
         $.ajax({
@@ -106,6 +113,7 @@ $(document).ready(function () {
             success: function(response){
                 var variables = response;
                 $("#variables_select").html(variables);
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -114,6 +122,7 @@ $(document).ready(function () {
     });
 
     $("#data-create-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form = new FormData();
         $.ajax({
             url: '/createData',
@@ -130,6 +139,7 @@ $(document).ready(function () {
                         responsive: true
                     } );
                 }
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -138,6 +148,7 @@ $(document).ready(function () {
     });
 
     $("#kmeas-btn").click(function(){
+        $("#js-loader").css("display","block");
         $.ajax({
             url: '/kmeas',
             type: 'POST',
@@ -167,6 +178,7 @@ $(document).ready(function () {
                     } );
                 }
                 $("#3D").html(graph_3d);
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){

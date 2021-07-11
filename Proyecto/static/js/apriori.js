@@ -11,6 +11,7 @@ $(document).ready(function () {
     });
 
     $("#file-apriori-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form_data = new FormData($('#file-form')[0]);
         form_data.append("header_options",$("#header_options").val())
         $.ajax({
@@ -28,6 +29,7 @@ $(document).ready(function () {
                         responsive: true
                     } );
                 }
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -36,6 +38,7 @@ $(document).ready(function () {
     });
 
     $("#apriori-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form_data = new FormData();
         form_data.append("soporte",$("#soporte").val())
         form_data.append("confianza",$("#confianza").val())
@@ -47,14 +50,14 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function(response){
-                $("#features-container").css("display","block");
+                $("#features-container2").css("display","block");
                 var tabla = response;
-                $("#tabla_data").html(tabla);
+                $("#tabla_configuraciones").html(tabla);
                 if( $('#table2').length){
                     $('#table2').DataTable( {
-                        responsive: true
                     } );
                 }
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){

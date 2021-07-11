@@ -11,6 +11,7 @@ $(document).ready(function () {
     });
 
     $("#file-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form_data = new FormData($('#file-form')[0]);
         $.ajax({
             url: '/data_table',
@@ -30,6 +31,7 @@ $(document).ready(function () {
                     } );
                 }
                 $("#column_options").html(columnas);
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -38,6 +40,7 @@ $(document).ready(function () {
     });
 
     $('#column_options').on('change',function(e){
+        $("#js-loader").css("display","block");
         var form = new FormData();
         form.append("column_options",$("#column_options").val());
         $.ajax({
@@ -49,6 +52,7 @@ $(document).ready(function () {
             success: function(response){
                 var filas = response;
                 $("#fila_options").html(filas);
+                $("#js-loader").css("display","none");
             },
             error: function(error){
                 console.log(response);
@@ -57,6 +61,7 @@ $(document).ready(function () {
     });
 
     $("#analize-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form = new FormData();
         form.append("column_options",$("#column_options").val());
         form.append("fila_options",$("#fila_options").val());
@@ -94,6 +99,7 @@ $(document).ready(function () {
                         responsive: true
                     } );
                 }
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){

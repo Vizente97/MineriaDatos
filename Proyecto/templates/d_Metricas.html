@@ -1,0 +1,55 @@
+{% extends 'template_base.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h1 mb-1 text-gray-800">Métricas de Similitud</h1>
+            </div>
+        
+            <!-- Metricas -->
+            <div class="row">
+                <div class="col-lg-12 mb-4">       
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">¿Qué son las métricas de similitud?</h6>
+                    </div>
+                    <div class="card-body">
+                        <p> Una medida de similitud (distancia) es una puntuación objetiva que resume la diferencia entre
+                            dos elementos, como: registro de compra, venta, diagnóstico, persona, usuarios y entre otros.</p>
+                        <p> Estas mediciones se utilizan para ‘aprender de los datos’. Algunos algoritmos que utilizan
+                            medidas de distancia en su funcionamiento son:</p>
+                        <ul>
+                            <li> K vecinos más cercanos (KNN).</li>
+                            <li> Aprendizaje de cuantificación vectorial (LVQ).</li>
+                            <li> Clustering (Particional o Jerárquico).</li>
+                            <li> Entre otros.</li>
+                        </ul>
+                        <p> Algunas métricas destacadas son:</p>
+                        <ul>
+                            <li> Distancia Euclidiana.</li>
+                            <li> Distancia de Chebyshev.</li>
+                            <li> Distancia de Manhattan o Geometría del taxista.</li>
+                            <li> Distancia de Minkowsky.</li>
+                            <li> Distancia de Hamming.</li>
+                        </ul>
+                        <div class="text-center">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 70rem;"
+                                src="static/img/metricas.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+{% endblock%}

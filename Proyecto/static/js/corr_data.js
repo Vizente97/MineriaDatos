@@ -11,6 +11,7 @@ $(document).ready(function () {
     });
 
     $("#file-analize-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form_data = new FormData($('#file-form')[0]);
         $.ajax({
             url: '/data_analize',
@@ -49,6 +50,7 @@ $(document).ready(function () {
                         responsive: true
                     } );
                 }
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -58,6 +60,7 @@ $(document).ready(function () {
     });
 
     $("#graph-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form = new FormData();
         form.append("abscisa_options",$("#abscisa_options").val());
         form.append("ordenada_options",$("#ordenada_options").val());
@@ -71,6 +74,7 @@ $(document).ready(function () {
                 $("#features-container2").css("display","block");
                 var img = response;
                 $("#img_two_data").html(img);
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){

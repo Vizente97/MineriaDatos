@@ -1,0 +1,63 @@
+{% extends 'template_base.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h1 mb-1 text-gray-800">Cluster Particional</h1>
+        </div>
+    
+    <!-- Que es kmeans -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">       
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">¿Qué es el Clustering?</h6>
+                    </div>
+                    <div class="card-body">
+                        <p> ML aplicado a la definición de cluster consiste en la segmentación y delimitación de grupos
+                            de elementos, que son unidos por características comunes que éstos comparten
+                            (aprendizaje no supervisado). El objetivo es dividir una población heterogénea de elementos en un número de grupos
+                            naturales (regiones o segmentos homogéneos), de acuerdo a sus similitudes.</p>
+                        <p> Para hacer clustering es necesario saber el grado de similitud entre los elementos. La forma de hacer esto es utilizando las métricas de distancias.</p>
+                        <p> Existen 2 métodos para hacer clustering:</p>
+                        <ol>
+                            <li> <b>Particional:</b> Organiza los registros dentro de k grupos.</li>
+                            <li> <b>Jerárquico:</b> Organiza los elementos, de manera recursiva, en una estructura en forma de árbol.</li>
+                        </ol>
+                        <div class="text-center">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 60rem;"
+                                src="static/img/clustering.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-lg-12 mb-4">       
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">¿Qué es el Cluster Particional? ¿Qué es K-Means?</h6>
+                    </div>
+                    <div class="card-body">
+                        <p> El algoritmo particional, conocido también como de particiones, organiza los elementos dentro
+                            de k clústeres. Tiene ventajas en aplicaciones que involucran gran cantidad de datos.</p>
+                        <p> K-Means es uno de los algoritmos utilizados en la industria para crear k clústeres a partir de un conjunto
+                            de elementos (objetos), de modo que los miembros de un grupo sean similares. El algoritmo k-means resuelve problemas de optimización, 
+                            dado que la función es minimizar (optimizar) la suma de las distancias de cada elemento al centroide de un cluster.</p>
+                        <div class="text-center">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 60rem;"
+                                src="static/img/kmeans.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+{% endblock%}

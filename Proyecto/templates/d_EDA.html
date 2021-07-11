@@ -1,0 +1,46 @@
+{% extends 'template_base.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h1 mb-1 text-gray-800">Análisis Exploratorio de Datos (EDA)</h1>
+        </div>
+    
+        <!-- Que es minería -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">       
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">¿Qué es EDA?</h6>
+                </div>
+                <div class="card-body">
+                    <p> El objetivo de EDA es que podamos obtener una idea de la estructura del conjunto de datos, identificar la variable objetivo y
+                        posibles técnicas de modelado. Una buena práctica hacer un análisis de los datos para resumir sus principales características, así como obtener una visualización grafica,
+                        es decir, en pocas palabras el análisis exploratorio de datos, o EDA, implica conocer los datos.</p>
+                    <p> EDA implica un procedimiento de 4 pasos, los cuales son:</p>
+                    <ul>
+                        <li> Paso 1: Descripción de la estructura de los datos.</li>
+                        <li> Paso 2: Identificación de datos faltantes.</li>
+                        <li> Paso 3: Detección de valores atípicos.</li>
+                        <li> Paso 4: Identificación de relaciones entre pares variables.</li>
+                    </ul>
+                    <div class="text-center">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 60rem;"
+                            src="static/img/EDA.png" alt="">
+                    </div>
+                </div>
+            </div>
+            </div> 
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+{% endblock%}

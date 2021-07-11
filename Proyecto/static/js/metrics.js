@@ -11,6 +11,7 @@ $(document).ready(function () {
     });
 
     $("#analize-metric-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form_data = new FormData($('#file-form')[0]);
         form_data.append("metricas_options",$("#metricas_options").val());
         var cod = document.getElementById("metricas_options").value;
@@ -32,6 +33,7 @@ $(document).ready(function () {
                         responsive: true
                     } );
                 }
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){

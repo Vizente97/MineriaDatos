@@ -15,6 +15,7 @@ class PCA_Analysis():
     def varianza(Componentes):
         eugenvalues = Componentes.explained_variance_ratio_
         varianza = sum(eugenvalues[0:5])
+        plt.figure()
         plt.plot(np.cumsum(Componentes.explained_variance_ratio_))
         plt.xlabel('Número de componentes')
         plt.ylabel('Varianza acumulada')

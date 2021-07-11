@@ -11,6 +11,7 @@ $(document).ready(function () {
     });
 
     $("#file-btn-pca").click(function(){
+        $("#js-loader").css("display","block");
         var form_data = new FormData($('#file-form')[0]);
         $.ajax({
             url: '/data_table_pca',
@@ -32,6 +33,7 @@ $(document).ready(function () {
                     } );
                 }
                 $("#columns_options").html(columnas);
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -40,6 +42,7 @@ $(document).ready(function () {
     });
 
     $("#eliminar-y-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form = new FormData();
         form.append("columns_options",$("#columns_options").val());
         $.ajax({
@@ -59,6 +62,7 @@ $(document).ready(function () {
                     } );
                 }
                 $("#columns_options").html(columnas);
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -67,6 +71,7 @@ $(document).ready(function () {
     });
 
     $("#normalize-btn").click(function(){
+        $("#js-loader").css("display","block");
         $.ajax({
             url: '/normalize_data',
             type: 'POST',
@@ -81,6 +86,7 @@ $(document).ready(function () {
                         responsive: true
                     } );
                 }
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
@@ -89,6 +95,7 @@ $(document).ready(function () {
     });
 
     $("#component-btn").click(function(){
+        $("#js-loader").css("display","block");
         var form = new FormData();
         form.append("components",$("#components").val());
         $.ajax({
@@ -140,6 +147,7 @@ $(document).ready(function () {
                 $("#eigenvalues").html(eugenvalues);
                 $("#varianza").html(varianza);
                 $("#img_varianza").html(img);
+                $("#js-loader").css("display","none");
                 console.log(response);
             },
             error: function(error){
