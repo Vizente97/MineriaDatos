@@ -6,6 +6,7 @@ from Programas.correlaciones import corrData
 from Programas.pcaAnalysis import PCA_Analysis
 from Programas.kmeans import KMeans_Program
 from Programas.apriori import Apriori_Analysis
+from Programas.regresion import Regresion_Analysis
 import numpy as np
 import matplotlib.pyplot as plt
 plt.matplotlib.use('agg')
@@ -17,6 +18,7 @@ from apyori import apriori
 
 app = Flask("Mineria Datos")
 data_global = {}
+new_data_global = {}
 selection = []
 kmeans = []
 
@@ -87,6 +89,10 @@ def d_Apriori():
 @app.route('/contacto.html')
 def contacto():
     return render_template('contacto.html')
+
+@app.route('/regresion.html')
+def regresion():
+    return render_template('regresion.html')
 
 @app.route("/data_file", methods=["POST"])
 def analize_file():
@@ -425,6 +431,59 @@ def reglas_apriori():
     HTML = frame.to_html().replace("dataframe","table table-bordered")
     HTML = HTML.replace('border="1"','id="table2"')
     return jsonify(HTML)
+
+##########################################################################################
+
+##################################### Regresión ##########################################
+
+@app.route("/data_table_regresion", methods=["POST"])
+def data_table_regresion():
+    global data_global
+    file_content = request.files["file"].read().decode("utf-8")
+    if len(file_content) > 0:
+        Datos = pd.read_csv(StringIO(file_content))
+        data_global = Datos
+        frame = pd.DataFrame(Datos)
+        HTML = frame.to_html().replace("dataframe","table table-bordered")
+        HTML = HTML.replace('border="1"','id="table1"')
+        labels = Regresion_Analysis.format_Checkbox(list(Datos.columns.values))
+        frame = pd.DataFrame(labels)
+        HTML2 = frame.to_html().replace("dataframe","table table-bordered")
+        HTML2 = HTML2.replace('border="1"','id="table2"')
+        HTML2 = HTML2.replace('checkbox','<input type="checkbox">')
+    else:
+        raise Warning("No existe un archivo a analizar")
+    return jsonify(HTML,HTML2)
+
+@app.route("/regresion_data", methods=["POST"])
+def regresion_data():
+    global data_global
+    global new_data_global
+    valores = request.form["seleccionados"]
+    newData_reg = Regresion_Analysis.newData(valores,data_global)
+    new_data_global = newData_reg
+    frame = pd.DataFrame(newData_reg)
+    HTML = frame.to_html().replace("dataframe","table table-bordered")
+    HTML = HTML.replace('border="1"','id="table3"')
+    labels = Regresion_Analysis.format_Checkbox(list(newData_reg.columns.values))
+    frame = pd.DataFrame(labels)
+    HTML2 = frame.to_html().replace("dataframe","table table-bordered")
+    HTML2 = HTML2.replace('border="1"','id="table4"')
+    HTML2 = HTML2.replace('checkbox','<input type="checkbox">')
+    labels = Data.config_columnas_corr(list(newData_reg.columns.values))
+    return jsonify(HTML,HTML2,labels)
+
+@app.route("/regresion_model", methods=["POST"])
+def regresion_model():
+    global new_data_global
+    x_values = request.form["seleccionados"]
+    y_values = request.form["y_pronosticar"]
+    test = request.form["test"]
+    exactitud, tabla = Regresion_Analysis.model_train(new_data_global,x_values,y_values,test)
+    frame = pd.DataFrame(tabla)
+    HTML = frame.to_html().replace("dataframe","table table-bordered")
+    HTML = HTML.replace('border="1"','id="table5"')
+    return jsonify(exactitud,HTML)
 
 ##########################################################################################
 
