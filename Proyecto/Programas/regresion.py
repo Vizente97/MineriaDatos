@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np 
 from sklearn import linear_model, model_selection
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+import pickle                  
+import os  
 import warnings
 warnings.filterwarnings('ignore') 
 
@@ -35,4 +37,43 @@ class Regresion_Analysis():
         text_exact = "<p><b>Exactitud del Modelo: </b>"+str(Exactitud)+"</p>"
         report = classification_report(Y_validation,PrediccionesNuevas, output_dict=True)
         tabla = pd.DataFrame(report).transpose()
-        return (text_exact, tabla)
+        valores = ""
+        diccionario = {}
+        for i in range(len(lista)):
+            valor = Clasificacion.coef_[0][i]
+            variable = lista[i]
+            diccionario[variable] = valor
+            valores += " + "+str(round(valor,3))+str(variable)
+        intercept_value = Clasificacion.intercept_
+        diccionario['Intercept'] = intercept_value[0]
+        text_function = "<p style='width: 1500px;'><b>a+bX= </b>"+str(intercept_value[0])+valores+"</p>"
+        return (text_exact, tabla,text_function,diccionario)
+
+    def loadModel(archivo):
+        inputs_values = []
+        nombre_fichero = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos", archivo)
+        with open(nombre_fichero, "rb") as f:
+            data2 = pickle.load(f)
+        listOfKeys = data2.keys()
+        inputs = ""
+        for key in listOfKeys:
+            if(key != "Intercept"):
+                inputs_values.append(key)
+                inputs += '<p><b>Indique el valor de '+str(key)+':</b></p>'+'<input type="number" id="'+str(key)+'" name="'+str(key)+'" min="0" max="100" class="form-control" style="width: 100%"><br>'
+        return (inputs,inputs_values)
+
+    def UseModel(values,archivo):
+        nombre_fichero = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos", archivo)
+        with open(nombre_fichero, "rb") as f:
+            data2 = pickle.load(f)
+        listOfKeys = data2.keys()
+        valor = 0
+        for key in listOfKeys:
+            if(key != "Intercept"):
+                valor += data2[key] * values[key] 
+            else:
+                valor += data2["Intercept"]
+        valor_final = 1/(1+np.e**(-(valor)))
+        cadena_pronostico = '<p><b>Diagnostico: </b>'+str(valor_final)+"</p>"
+        return (cadena_pronostico)
+

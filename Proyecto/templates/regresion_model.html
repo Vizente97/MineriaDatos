@@ -1,0 +1,74 @@
+{% extends 'template_base2.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h1 mb-1 text-gray-800">Regresión Lineal - Usar Modelo</h1>
+        </div>
+        <!-- Cluster Particional -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">       
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Selecciona el modelo a utilizar</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="custom-file col-4 ml-2">
+                            <select class="form-control" id="modelos">
+                                {% for modelo in modelos %}
+                                    <option>{{modelo}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <fieldset>
+                        <button id="load-model-btn" type="button" class="btn btn-md btn-secondary">Utilizar</button>
+                    </fieldset>
+                </div>
+                <div id="features-container" style="display: none;">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Coloque el valor de las variables</h6>
+                    </div>
+                    <div class="row">
+                        <div class="custom-file col-4 ml-2 ">
+                            <br>
+                            <div id = "input_values">
+
+                            </div>
+                            <br>
+                            <fieldset>
+                                <button id="use-model-btn" type="button" class="btn btn-md btn-secondary">Obtener pronóstico</button>
+                            </fieldset>
+                            <br>
+                            <div id="features-container2" style="display: none;">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Resultado</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 mb-4">
+                                        <br>
+                                        <div id = "resultado">
+        
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div id="separator" style="height: 100px; background-color: rgba(0, 0, 0, 0);"></div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+{% endblock%}

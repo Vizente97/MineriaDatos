@@ -1,5 +1,6 @@
 $(document).ready(function () {
     if ($('input[type=file]')[0].files.length){
+        alert("Entre");
         $(".custom-file-label").html($('input[type=file]')[0].files[0].name);
     }
     
@@ -24,9 +25,6 @@ $(document).ready(function () {
                 $("#features-container2").css("display","none");
                 $("#features-container3").css("display","none");
                 $("#features-container4").css("display","none");
-                $("#features-container5").css("display","none");
-                $("#features-container6").css("display","none");
-                $("#features-container7").css("display","none");
                 var tabla = response[0];
                 var tabla2 = response[1];
                 $("#tabla1").html(tabla);
@@ -99,7 +97,7 @@ $(document).ready(function () {
     });
 
     $("#model-btn").click(function(){
-        //$("#js-loader").css("display","block");
+        $("#js-loader").css("display","block");
         var form = new FormData();
         valores = []
         $('#table4 tr').each(function (i, row) {
@@ -123,6 +121,7 @@ $(document).ready(function () {
                 $("#features-container4").css("display","block");
                 var exactitud = response[0];
                 var tabla = response[1];
+                var formula = response[2];
                 $("#exactitud").html(exactitud);
                 $("#tabla5").html(tabla);
                 if( $('#table5').length){
@@ -130,6 +129,47 @@ $(document).ready(function () {
                         responsive: true
                     } );
                 }
+                $("#formula_model").html(formula);
+                $("#js-loader").css("display","none");
+            },
+            error: function(error){
+            }
+        });   
+    });
+
+    $("#save-model-btn").click(function(){
+        $("#js-loader").css("display","block");
+        var form = new FormData();
+        form.append("name_model",$("#name_model").val());
+        $.ajax({
+            url: '/save_model',
+            data: form,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function(response){
+                $("#features-container4").css("display","block");
+                $("#js-loader").css("display","none");
+                alert("Modelo Guardado");
+                window.location="http://127.0.0.1:5000/regresion_model.html";
+            },
+            error: function(error){
+            }
+        });   
+    });
+
+    $("#load-model-btn").click(function(){
+        //$("#js-loader").css("display","block");
+        var form = new FormData();
+        form.append("modelo",$("#modelos").val());
+        $.ajax({
+            url: '/load_model',
+            data: form,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function(response){
+                //$("#features-container").css("display","block");
                 //$("#js-loader").css("display","none");
             },
             error: function(error){

@@ -1,0 +1,45 @@
+{% extends 'template_base2.html'%}
+
+{% block content%}
+<!-- Main Content -->
+<div id="content">
+    <br>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h1 mb-1 text-gray-800">Regresión Logística</h1>
+        </div>
+    
+        <!-- PCA -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">       
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">¿Qué es Regresión Logística?</h6>
+                </div>
+                <div class="card-body">
+                    <p> La regresión logística es otro tipo de algoritmo de aprendizaje supervisado cuyo objetivo es
+                        predecir valores binarios (0 o 1). Este algoritmo consiste en una transformación a la regresión
+                        lineal.</p>
+                    <p> La transformación se debe a que una regresión lineal no funciona para predecir una variable
+                        binaria.</p>
+                    <p> Se utiliza la misma estructura que la regresión lineal, pero se transforma la variable respuesta (0
+                        o 1) en una probabilidad.</p>
+                    <p> Para esta transformación se utiliza la función logística (conocida también como sigmoide).</p>
+                    <div class="text-center">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 35rem;"
+                            src="static/img/regresión1.png" alt="">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 35rem;"
+                        src="static/img/regresión2.png" alt="">
+                    </div>
+                </div>
+            </div>
+            </div> 
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+{% endblock%}

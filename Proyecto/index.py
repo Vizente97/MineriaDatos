@@ -14,13 +14,19 @@ from base64 import b64encode
 import seaborn as sns
 from scipy.spatial.distance import cdist
 from sklearn.preprocessing import StandardScaler
-from apyori import apriori  
+from apyori import apriori
+import pickle                  
+import os  
+import os.path  
 
 app = Flask("Mineria Datos")
 data_global = {}
 new_data_global = {}
 selection = []
 kmeans = []
+diccionario_model = {}
+keys = {}
+modelo_in_use = ""
 
 @app.route('/')
 def principal():
@@ -93,6 +99,16 @@ def contacto():
 @app.route('/regresion.html')
 def regresion():
     return render_template('regresion.html')
+
+@app.route('/d_regresion.html')
+def d_regresion():
+    return render_template('d_regresion.html')
+
+@app.route('/regresion_model.html')
+def regresion_model_url():
+    ruta = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos")
+    dir_list = os.listdir(ruta)
+    return render_template('regresion_model.html', modelos = dir_list)
 
 @app.route("/data_file", methods=["POST"])
 def analize_file():
@@ -476,14 +492,47 @@ def regresion_data():
 @app.route("/regresion_model", methods=["POST"])
 def regresion_model():
     global new_data_global
+    global diccionario_model
     x_values = request.form["seleccionados"]
     y_values = request.form["y_pronosticar"]
     test = request.form["test"]
-    exactitud, tabla = Regresion_Analysis.model_train(new_data_global,x_values,y_values,test)
+    exactitud, tabla,formula,model_formula = Regresion_Analysis.model_train(new_data_global,x_values,y_values,test)
+    diccionario_model = model_formula
     frame = pd.DataFrame(tabla)
     HTML = frame.to_html().replace("dataframe","table table-bordered")
     HTML = HTML.replace('border="1"','id="table5"')
-    return jsonify(exactitud,HTML)
+    return jsonify(exactitud,HTML,formula)
+
+@app.route("/save_model", methods=["POST"])
+def save_model():
+    global diccionario_model
+    name_model = request.form["name_model"]
+    nombre_archivo = str(name_model)+str(".bin")
+    nombre_fichero = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos", nombre_archivo)
+    data_string = pickle.dumps(diccionario_model)
+    file = open(nombre_fichero, "wb")
+    file.write(data_string)
+    file.close()
+    return jsonify(0)
+
+@app.route("/load_model", methods=["POST"])
+def load_model():
+    global modelo_in_use
+    global keys
+    name_model = request.form["modelo"]
+    modelo_in_use = name_model
+    inputs,keys_values = Regresion_Analysis.loadModel(name_model)
+    keys = keys_values
+    return jsonify(inputs,keys)
+
+@app.route("/use_model", methods=["POST"])
+def use_model():
+    global modelo_in_use
+    diccionario = {}
+    for i in range(len(keys)):
+        diccionario[keys[i]] = float(request.form[str(keys[i])])
+    prediccion = Regresion_Analysis.UseModel(diccionario, modelo_in_use)
+    return jsonify(prediccion)
 
 ##########################################################################################
 

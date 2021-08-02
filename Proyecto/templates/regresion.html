@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h1 mb-1 text-gray-800">Regresión Lineal</h1>
+            <h1 class="h1 mb-1 text-gray-800">Regresión Lineal - Crear Modelo</h1>
         </div>
         <!-- Cluster Particional -->
         <div class="row">
@@ -119,73 +119,31 @@
     
                                         </div>
                                         <br>
+                                        <br>
+                                        <p><b>Modelo de Clasificación:</b></p>
+                                        <br>
+                                        <div id = "formula_model">
+    
+                                        </div>
+                                        <br>
                                     </div>
                                 </div>
-                                <fieldset>
-                                    <button id="select-btn" type="button" class="btn btn-md btn-secondary">Guardar Modelo</button>
-                                </fieldset>
-                                <br>
-                            </div>
-                            <div id="features-container6" style="display: none;">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Guardar Modelo</h6>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-12 mb-4">
                                         <br>
-                                        <br>
-                                        <p><b>Data a trabajar</b></p>
-                                        <div id = "newData">
-    
+                                        <p><b>Indique el nombre con el cual guardar el modelo:</b></p>
+                                        <div class="col-4">
+                                            <input type="text" id="name_model" name="name_model"class="form-control" style="width: 100%">
                                         </div>
                                         <br>
                                     </div>
                                 </div>
                                 <fieldset>
-                                    <button id="kmeas-btn" type="button" class="btn btn-md btn-secondary">Analizar con K-means</button>
+                                    <button id="save-model-btn" type="button" class="btn btn-md btn-secondary">Guardar Modelo</button>
                                 </fieldset>
-                            </div>
-                            <div id="features-container7" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-12 mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Algoritmo K-Means</h6>
-                                        </div>
-                                        <br>
-                                        <p><b>Gráfica SSE en función de k</b></p>
-                                        <div id = "sse">
-    
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <p><b>Knee Point</b></p>
-                                        <div id = "kneepoint">
-    
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <p><b>Tabla de Clusters</b></p>
-                                        <div id = "table_cluster">
-    
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <p><b>Gráfica de Clusters</b></p>
-                                        <div id = "graph_cluster">
-    
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <p><b>Tabla de Centroides</b></p>
-                                        <div id = "tableCentroide">
-    
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <p><b>Gráfica 3D</b></p>
-                                        <div id = "3D">
-    
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
                                 <br>
                             </div>
                             <div id="separator" style="height: 100px; background-color: rgba(0, 0, 0, 0);"></div>
