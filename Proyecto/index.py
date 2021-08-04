@@ -27,6 +27,7 @@ kmeans = []
 diccionario_model = {}
 keys = {}
 modelo_in_use = ""
+clasificacion = ""
 
 @app.route('/')
 def principal():
@@ -491,12 +492,13 @@ def regresion_data():
 
 @app.route("/regresion_model", methods=["POST"])
 def regresion_model():
+    global clasificacion
     global new_data_global
     global diccionario_model
     x_values = request.form["seleccionados"]
     y_values = request.form["y_pronosticar"]
     test = request.form["test"]
-    exactitud, tabla,formula,model_formula = Regresion_Analysis.model_train(new_data_global,x_values,y_values,test)
+    exactitud, tabla,formula,model_formula,clasificacion = Regresion_Analysis.model_train(new_data_global,x_values,y_values,test)
     diccionario_model = model_formula
     frame = pd.DataFrame(tabla)
     HTML = frame.to_html().replace("dataframe","table table-bordered")
@@ -506,12 +508,19 @@ def regresion_model():
 @app.route("/save_model", methods=["POST"])
 def save_model():
     global diccionario_model
+    global clasificacion
     name_model = request.form["name_model"]
     nombre_archivo = str(name_model)+str(".bin")
     nombre_fichero = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos", nombre_archivo)
     data_string = pickle.dumps(diccionario_model)
     file = open(nombre_fichero, "wb")
     file.write(data_string)
+    file.close()
+    nombre_archivo = str(name_model)+str("_formula.bin")
+    nombre_fichero2 = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos","Formulas", nombre_archivo)
+    data_string2 = pickle.dumps(clasificacion)
+    file = open(nombre_fichero2, "wb")
+    file.write(data_string2)
     file.close()
     return jsonify(0)
 
@@ -520,7 +529,8 @@ def load_model():
     global modelo_in_use
     global keys
     name_model = request.form["modelo"]
-    modelo_in_use = name_model
+    model_formula = name_model.replace(".bin","_formula.bin")
+    modelo_in_use = model_formula
     inputs,keys_values = Regresion_Analysis.loadModel(name_model)
     keys = keys_values
     return jsonify(inputs,keys)
@@ -530,7 +540,7 @@ def use_model():
     global modelo_in_use
     diccionario = {}
     for i in range(len(keys)):
-        diccionario[keys[i]] = float(request.form[str(keys[i])])
+        diccionario[keys[i]] = [float(request.form[str(keys[i])])]
     prediccion = Regresion_Analysis.UseModel(diccionario, modelo_in_use)
     return jsonify(prediccion)
 

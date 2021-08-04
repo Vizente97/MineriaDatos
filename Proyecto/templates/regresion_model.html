@@ -21,7 +21,11 @@
                         <div class="custom-file col-4 ml-2">
                             <select class="form-control" id="modelos">
                                 {% for modelo in modelos %}
-                                    <option>{{modelo}}</option>
+                                    {% if 'Formulas' in modelo %}
+                                        
+                                    {% else %}
+                                        <option>{{modelo}}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>

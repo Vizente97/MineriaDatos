@@ -1,11 +1,12 @@
 import pandas as pd 
 import numpy as np 
 from sklearn import linear_model, model_selection
+from sklearn.base import ClassifierMixin
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import pickle                  
 import os  
 import warnings
-warnings.filterwarnings('ignore') 
+warnings.filterwarnings('ignore')
 
 class Regresion_Analysis():
     def format_Checkbox(columnas):
@@ -47,7 +48,7 @@ class Regresion_Analysis():
         intercept_value = Clasificacion.intercept_
         diccionario['Intercept'] = intercept_value[0]
         text_function = "<p style='width: 1500px;'><b>a+bX= </b>"+str(intercept_value[0])+valores+"</p>"
-        return (text_exact, tabla,text_function,diccionario)
+        return (text_exact, tabla,text_function,diccionario,Clasificacion)
 
     def loadModel(archivo):
         inputs_values = []
@@ -63,17 +64,20 @@ class Regresion_Analysis():
         return (inputs,inputs_values)
 
     def UseModel(values,archivo):
-        nombre_fichero = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos", archivo)
+        nombre_fichero = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos","Formulas", archivo)
         with open(nombre_fichero, "rb") as f:
             data2 = pickle.load(f)
-        listOfKeys = data2.keys()
-        valor = 0
-        for key in listOfKeys:
-            if(key != "Intercept"):
-                valor += data2[key] * values[key] 
-            else:
-                valor += data2["Intercept"]
-        valor_final = 1/(1+np.e**(-(valor)))
-        cadena_pronostico = '<p><b>Diagnostico: </b>'+str(valor_final)+"</p>"
-        return (cadena_pronostico)
+        #listOfKeys = data2.keys()
+        #valor = 0
+        #for key in listOfKeys:
+        #    if(key != "Intercept"):
+        #        valor += data2[key] * values[key] 
+        #    else:
+        #        valor += data2["Intercept"]
+        #valor_final = 1/(1+np.e**(-(valor)))
+        #cadena_pronostico = '<p><b>Diagnostico: </b>'+str(valor_final)+"</p>"
+        NuevoPaciente = pd.DataFrame(values)
+        cadena_pronostico = data2.predict(NuevoPaciente)
+        cadena_pronostico_final = '<p><b>Diagnostico: </b>'+str(cadena_pronostico[0])+"</p>"
+        return (cadena_pronostico_final)
 
