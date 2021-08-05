@@ -78,6 +78,6 @@ class Regresion_Analysis():
         #cadena_pronostico = '<p><b>Diagnostico: </b>'+str(valor_final)+"</p>"
         NuevoPaciente = pd.DataFrame(values)
         cadena_pronostico = data2.predict(NuevoPaciente)
-        cadena_pronostico_final = '<p><b>Diagnostico: </b>'+str(cadena_pronostico[0])+"</p>"
+        cadena_pronostico_final = '<p><b>Diagnóstico: </b>'+str(cadena_pronostico[0])+"</p>"
         return (cadena_pronostico_final)
 

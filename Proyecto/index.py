@@ -18,6 +18,7 @@ from apyori import apriori
 import pickle                  
 import os  
 import os.path  
+from werkzeug.datastructures import FileStorage
 
 app = Flask("Mineria Datos")
 data_global = {}
@@ -145,9 +146,15 @@ def analize_file():
 def analize_data():
     global data_global
     response = {}
+    name = request.files["file"]
     file_content = request.files["file"].read().decode("utf-8")
     if len(file_content) > 0:
-        Datos = pd.read_csv(StringIO(file_content))
+        type = (name.filename).split(".")[-1]
+        if type.lower() == "csv":
+            Datos = pd.read_csv(StringIO(file_content))
+        elif type.lower() == "txt":
+            Datos = pd.read_table(StringIO(file_content))
+        #Datos = pd.read_csv(StringIO(file_content))
         data_global = Datos
         frame = pd.DataFrame(Datos)
         HTML = frame.to_html().replace("dataframe","table table-bordered")
@@ -203,9 +210,14 @@ def heapmap_html(datos2, valor_column, valor_fila):
 def data_analize():
     global data_global
     response = {}
+    name = request.files["file"]
     file_content = request.files["file"].read().decode("utf-8")
     if len(file_content) > 0:
-        Datos = pd.read_csv(StringIO(file_content))
+        type = (name.filename).split(".")[-1]
+        if type.lower() == "csv":
+            Datos = pd.read_csv(StringIO(file_content))
+        elif type.lower() == "txt":
+            Datos = pd.read_table(StringIO(file_content))
         data_global = Datos
         frame = pd.DataFrame(Datos)
         HTML = frame.to_html().replace("dataframe","table table-bordered")
@@ -226,7 +238,7 @@ def graph_corr():
     global data_global
     valor_abs = request.form["abscisa_options"]
     valor_ord = request.form["ordenada_options"]
-    sns.scatterplot(x=valor_abs, y =valor_ord, data=data_global)
+    sns.scatterplot(y=valor_abs, x =valor_ord, data=data_global)
     plt.title('Gráfico de dispersión')
     plt.xlabel(valor_ord)
     plt.ylabel(valor_abs)
@@ -248,9 +260,14 @@ def graph_corr():
 def metrics():
     global data_global
     metrica = request.form["metricas_options"]
+    name = request.files["file"]
     file_content = request.files["file"].read().decode("utf-8")
     if len(file_content) > 0:
-        Datos = pd.read_csv(StringIO(file_content))
+        type = (name.filename).split(".")[-1]
+        if type.lower() == "csv":
+            Datos = pd.read_csv(StringIO(file_content))
+        elif type.lower() == "txt":
+            Datos = pd.read_table(StringIO(file_content))
         data_global = Datos
         if (metrica == "minkowski"):
             valor_p = request.form["p_minkowski"]
@@ -271,9 +288,14 @@ def data_table_pca():
     global data_global
     global selection
     selection = []
+    name = request.files["file"]
     file_content = request.files["file"].read().decode("utf-8")
     if len(file_content) > 0:
-        Datos = pd.read_csv(StringIO(file_content))
+        type = (name.filename).split(".")[-1]
+        if type.lower() == "csv":
+            Datos = pd.read_csv(StringIO(file_content))
+        elif type.lower() == "txt":
+            Datos = pd.read_table(StringIO(file_content))
         data_global = Datos
         frame = pd.DataFrame(Datos)
         HTML = frame.to_html().replace("dataframe","table table-bordered")
@@ -456,9 +478,14 @@ def reglas_apriori():
 @app.route("/data_table_regresion", methods=["POST"])
 def data_table_regresion():
     global data_global
+    name = request.files["file"]
     file_content = request.files["file"].read().decode("utf-8")
     if len(file_content) > 0:
-        Datos = pd.read_csv(StringIO(file_content))
+        type = (name.filename).split(".")[-1]
+        if type.lower() == "csv":
+            Datos = pd.read_csv(StringIO(file_content))
+        elif type.lower() == "txt":
+            Datos = pd.read_table(StringIO(file_content))
         data_global = Datos
         frame = pd.DataFrame(Datos)
         HTML = frame.to_html().replace("dataframe","table table-bordered")
