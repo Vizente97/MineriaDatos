@@ -108,7 +108,10 @@ def d_regresion():
 
 @app.route('/regresion_model.html')
 def regresion_model_url():
-    ruta = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos")
+    if(os.path.isdir("Modelos") == False):
+        os.mkdir("Modelos")
+        os.mkdir("Modelos/Formulas")
+    ruta = os.path.join("Modelos")
     dir_list = os.listdir(ruta)
     return render_template('regresion_model.html', modelos = dir_list)
 
@@ -538,13 +541,16 @@ def save_model():
     global clasificacion
     name_model = request.form["name_model"]
     nombre_archivo = str(name_model)+str(".bin")
-    nombre_fichero = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos", nombre_archivo)
+    if(os.path.isdir("Modelos") == False):
+        os.mkdir("Modelos")
+        os.mkdir("Modelos/Formulas")
+    nombre_fichero = os.path.join("Modelos", nombre_archivo)
     data_string = pickle.dumps(diccionario_model)
     file = open(nombre_fichero, "wb")
     file.write(data_string)
     file.close()
     nombre_archivo = str(name_model)+str("_formula.bin")
-    nombre_fichero2 = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos","Formulas", nombre_archivo)
+    nombre_fichero2 = os.path.join("Modelos","Formulas", nombre_archivo)
     data_string2 = pickle.dumps(clasificacion)
     file = open(nombre_fichero2, "wb")
     file.write(data_string2)
@@ -574,4 +580,5 @@ def use_model():
 ##########################################################################################
 
 if __name__ == '__main__':
-    app.run()
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host="0.0.0.0", debug=False, port=port)

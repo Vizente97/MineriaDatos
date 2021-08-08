@@ -151,7 +151,7 @@ $(document).ready(function () {
                 $("#features-container4").css("display","block");
                 $("#js-loader").css("display","none");
                 alert("Modelo Guardado");
-                window.location="http://127.0.0.1:5000/regresion_model.html";
+                location.reload(1);
             },
             error: function(error){
             }

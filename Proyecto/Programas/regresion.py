@@ -52,7 +52,7 @@ class Regresion_Analysis():
 
     def loadModel(archivo):
         inputs_values = []
-        nombre_fichero = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos", archivo)
+        nombre_fichero = os.path.join("Modelos", archivo)
         with open(nombre_fichero, "rb") as f:
             data2 = pickle.load(f)
         listOfKeys = data2.keys()
@@ -64,7 +64,7 @@ class Regresion_Analysis():
         return (inputs,inputs_values)
 
     def UseModel(values,archivo):
-        nombre_fichero = os.path.join(os.sep, "Users", "vis_9", "Desktop", "GitHub", "MineriaDatos", "Proyecto", "Modelos","Formulas", archivo)
+        nombre_fichero = os.path.join("Modelos","Formulas", archivo)
         with open(nombre_fichero, "rb") as f:
             data2 = pickle.load(f)
         #listOfKeys = data2.keys()

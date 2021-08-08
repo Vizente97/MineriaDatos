@@ -22,7 +22,9 @@
                             <select class="form-control" id="modelos">
                                 {% for modelo in modelos %}
                                     {% if 'Formulas' in modelo %}
-                                        
+                                    
+                                    {% elif '.wh..wh..opq' in modelo %}
+
                                     {% else %}
                                         <option>{{modelo}}</option>
                                     {% endif %}
